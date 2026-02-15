@@ -1,5 +1,5 @@
-Made a Google Spreadsheets Apps Script that automates getting information from the Home Depot Website
-it uses SerpAPI to scrape data such as product's brand, title, price, description, and image url just by entering the product model number in column A
+Made a Google Spreadsheets Apps Script that automates getting information from the Home Depot Website.
+It uses SerpAPI to scrape data such as product's brand, title, price, description, and image url just by entering the product model number in column A.
 just slap this baby onto your Apps Script in Spreadsheets and put: 
 (column A) Model, 
 (column B) Number,	
