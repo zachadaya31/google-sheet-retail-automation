@@ -1,0 +1,71 @@
+function scrapeAllProducts() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var apiKey = ""; // put your SerpAPI API key
+  
+  // get all model nums
+  var lastRow = sheet.getLastRow();
+  
+  if (lastRow < 2) {
+    Logger.log("there are no data to process");
+    return;
+  }
+
+  //loop
+  for (var i = 2; i <= lastRow; i++) {
+    var modelNumber = sheet.getRange(i, 1).getValue();
+    
+    if (!modelNumber) {
+      continue;
+    }
+    
+    Logger.log("Processing row " + i + ": " + modelNumber);
+    
+    // SerpAPI
+    var url = "https://serpapi.com/search.json?engine=home_depot&q=" + modelNumber + "&api_key=" + apiKey;
+    
+    try {
+      var response = UrlFetchApp.fetch(url);
+      var data = JSON.parse(response.getContentText());
+      
+      if (data.products && data.products.length > 0) {
+        var product = data.products[0];
+        
+        var brand = product.brand || "N/A";
+        var title = product.title || "N/A";
+        var price = product.price ? "$" + product.price + ".00" : "N/A";
+        var image = product.thumbnails && product.thumbnails[0] ? product.thumbnails[0][6] : "";
+        
+        sheet.getRange(i, 2).setValue(brand);
+        sheet.getRange(i, 3).setValue(title);
+        sheet.getRange(i, 4).setValue(price);
+        sheet.getRange(i, 5).setValue(image);
+        
+        Logger.log("Row " + i + " completed");
+        
+      } else {
+        sheet.getRange(i, 2).setValue("Not found");
+        Logger.log("Row " + i + " - product not found");
+      }
+      
+      // small delay so i wont hit search rate limit
+      Utilities.sleep(500);
+      
+    } catch (error) {
+      sheet.getRange(i, 2).setValue("Error");
+      Logger.log("Row " + i + " error: " + error);
+    }
+  } // end of loop
+  
+  // date for last update
+  sheet.getRange(1, 7).setValue("Last Updated:");
+  sheet.getRange(1, 8).setValue(new Date());
+  
+  Logger.log("DONE! Processed " + (lastRow - 1) + " products");
+}
+
+// add triggers here whether you want to update daily or anywhere and anytime!!!
+function dailyUpdate() {
+  Logger.log("Daily update started at: " + new Date());
+  scrapeAllProducts();
+  Logger.log("Daily update completed");
+}
