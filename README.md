@@ -1,5 +1,24 @@
-Made a Google Spreadsheets Apps Script that automates getting information from the Home Depot Website.
-It uses SerpAPI to scrape data such as product's brand, title, price, description, and image url just by entering the product model number in column A.
+# Automated Home Depot Price & Stock Tracker
+Automatically scrapes product prices, availability, and details from Home Depot and exports to Google Sheets. No manual checking needed.
+
+## What It Does
+- Monitors multiple products simultaneously
+- Tracks price changes automatically
+- Checks stock availability across stores
+- Exports everything to Google Sheets for easy analysis
+
+## Use Cases
+- Price monitoring for resellers
+- Competitor pricing analysis
+- Stock availability tracking
+- Automated inventory research
+
+<img width="1351" height="181" alt="image" src="https://github.com/user-attachments/assets/e40f8a7e-8c01-4ec2-9f12-b0d70c1b0a7e" />
+
+## Tech Stack
+Python, Selenium, Google Sheets API
+
+## Setup
 just slap this baby onto your Apps Script in Spreadsheets and put: 
 (column A) Model, 
 (column B) Number,	
@@ -8,5 +27,3 @@ just slap this baby onto your Apps Script in Spreadsheets and put:
 (column E) Price,	
 (column F) URL,	
 (column G and H) Last Updated:	Last Updated:
-
-or... I could also probably automate that, but here's working proof for a google sheet automatic web scraper. :)
