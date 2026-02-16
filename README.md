@@ -1,5 +1,6 @@
 # Automated Home Depot Price & Stock Tracker
 Automatically scrapes product prices, availability, and details from Home Depot and exports to Google Sheets. No manual checking needed.
+Just put the model number you want to look for and the script will do all the work.
 
 ## What It Does
 - Monitors multiple products simultaneously
